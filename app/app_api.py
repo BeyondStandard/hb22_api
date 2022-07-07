@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app import get_car_type
 from mangum import Mangum
+import random
+
+
 
 app = FastAPI()
 handler = Mangum(app)
@@ -13,6 +15,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+def get_car_type() -> str:
+    return random.choice(["electric", "gasoline", "diesel"])
+
 
 @app.get("/")
 def read_root():
